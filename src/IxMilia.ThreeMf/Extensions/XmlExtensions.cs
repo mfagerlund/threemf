@@ -32,9 +32,10 @@ namespace IxMilia.ThreeMf.Extensions
 
         public static double AttributeDoubleValueOrThrow(this XElement element, string attributeName)
         {
-            if (!double.TryParse(element.AttributeValueOrThrow(attributeName), out var value))
+            var svalue = element.AttributeValueOrThrow(attributeName);
+            if (!double.TryParse(svalue, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
             {
-                throw new ThreeMfParseException($"Unable to parse  attribute '{attributeName}' as a double.");
+                throw new ThreeMfParseException($"Unable to parse  attribute '{attributeName}'={svalue} as a double.");
             }
 
             return value;
